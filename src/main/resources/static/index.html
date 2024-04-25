@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kinobilletter</title>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> <!--JQuery library-->
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            margin-top: 0.6em;
+            margin-left: 0.8em;
+            margin-right: 0.8em;
+        }
+
+        /* Input styles */
+        input {
+            border-radius: 0;
+            border: 1px solid #ccc;
+        }
+
+        /* Film section */
+        #film {
+            width: fit-content;
+            display: inline-block;
+        }
+
+        /* Antall section */
+        #antall {
+            width: 40px;
+            margin: 10px 0;
+        }
+
+        .antall label {
+            display: inline-block;
+            text-align: left;
+            font-weight: 600;
+            float: none;
+            width: 50px;
+        }
+
+        .antall input {
+            display: inline-block;
+            float: none;
+            width: 30px;
+        }
+
+        /* Wrappers */
+        .wrapper {
+            margin-bottom: 1em;
+        }
+
+        .wrapper label {
+            width: fit-content;
+        }
+
+        .wrapper-form {
+            margin-bottom: 0.4em;
+        }
+
+        .wrapper-form label {
+            display: inline-block;
+            align-items: start;
+            margin-right: 1.2em;
+            width: 4.5em;
+        }
+
+        .wrapper-form input {
+            display: inline-block;
+            align-items: start;
+        }
+
+        /* Error message */
+        .error-message {
+            color: #ff0000;
+        }
+
+        /* Apply styles to the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+        }
+
+        th, td {
+            padding: 5px;
+            text-align: left;
+            border-bottom: 1px solid #cccccc;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1 class="h1">Bestilling av kinobilletter</h1>
+<form id="billettForm" action="#">
+
+    <!-- Film selection -->
+    <div class="wrapper">
+        <label for="film">Velg film:</label>
+        <select id="film" class="form-select" onblur="checkFilmSelectionInput()">
+            <option value="" disabled selected>Velg film her</option>
+        </select>
+        <span id="filmErrorMsg" class="error-message"></span>
+    </div>
+
+    <!-- Number of tickets -->
+    <div class="wrapper">
+        <label for="antall">Antall</label>
+        <input id="antall" type="number" onblur="checkBillettCountInput()" />
+        <span id="antallErrorMsg" class="error-message"></span>
+    </div>
+
+    <!-- First name input -->
+    <div class="wrapper-form">
+        <label for="fornavn">Fornavn</label>
+        <input id="fornavn" type="text" required onblur="checkNameInput()">
+        <span id="fornavnErrorMsg" class="error-message"></span>
+    </div>
+
+    <!-- Surname input -->
+    <div class="wrapper-form">
+        <label for="etternavn">Etternavn</label>
+        <input id="etternavn" type="text" required onblur="checkSurnameInput()">
+        <span id="etternavnErrorMsg" class="error-message"></span>
+    </div>
+
+    <!-- TelefonNr input -->
+    <div class="wrapper-form">
+        <label for="telefonnr">Telefonnr</label>
+        <input id="telefonnr" type="number" required onblur="checkPhoneInput()">
+        <span id="tlfErrorMsg" class="error-message"></span>
+    </div>
+
+    <!-- Email input -->
+    <div class="wrapper-form">
+        <label for="epost">Epost</label>
+        <input id="epost" type="email" required onblur="checkMailInput()">
+        <p id="epostError"></p>
+        <span id="epostErrorMsg" class="error-message"></span>
+    </div>
+
+    <!-- Purchase ticket button -->
+    <div class="wrapper">
+        <button type="button"
+            class="btn btn-primary btn-sm"
+            value="Kjøp billett"
+            onclick="addBillett()"
+            id="kjopBillett"> Kjøp billett
+        </button>
+    </div>
+
+    <!-- All tickets list -->
+    <h2 class="h2">Alle billetter</h2>
+
+    <div id="resultObject"></div>
+
+    <!-- Delete tickets button -->
+    <div class="wrapper">
+        <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            value="Slett billetter"
+            onclick="slettAlleBilletter()"
+            id="slettBillett">Slett alle billettene
+        </button>
+    </div>
+</form>
+
+</body>
+</html>
